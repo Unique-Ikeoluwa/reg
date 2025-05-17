@@ -53,7 +53,7 @@
     const form = document.querySelector('form');
   
     form.addEventListener('submit', async function (e) {
-      e.preventDefault(); 
+      e.preventDefault();
   
       const user = {
         name: document.getElementById("fullname").value,
@@ -63,7 +63,7 @@
       };
   
       try {
-        const res = await fetch("https://test.blockfuselabs.com/api/register", {
+        const res = await fetch("/api/register", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(user)
@@ -72,15 +72,17 @@
         const result = await res.json();
         localStorage.setItem("users", JSON.stringify(result));
         console.log("User registered:", result);
+  
         const details = document.getElementById("details");
         details.innerText = "Registration successful!";
         details.classList.remove("hidden");
-      } catch (error) {
-        console.error("Registration failed:", error);
-        alert("Something went wrong. Try again.");
+      } catch (err) {
+        console.error("Error registering user:", err);
+        alert("Registration failed.");
       }
     });
   </script>
+  
   
 </body>
 </html>
